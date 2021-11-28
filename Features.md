@@ -4,5 +4,7 @@ First sprint
 - implement email feature [working - A]
 
 Second sprint
-- implement ehrBase at backend [working - H/A]
+- implement send multiple files feature [done - H]
+- implement delete feature [done - H]
+- implement view files feature [done - A]
 
