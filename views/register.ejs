@@ -16,7 +16,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
 
 
-    <title>Upload files</title>
+    <title>Create an account</title>
     <nav class="navbar sticky-top navbar-expand-xl navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/login">My Health Records</a>
@@ -40,9 +40,12 @@
 <body>
     <div class='undernavbar'> 
         <h1>Create an account</h1>
-        <% if (name) { %>
+        <h6 class="error">
+          <% if (name) { %>
             <%= name %>
           <% } %>
+        </h6>
+        
         <form action="/register" method="POST">
           <div>
             <input type="text" id="name" name="name" placeholder="Enter your name" required>

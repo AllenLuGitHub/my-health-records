@@ -17,16 +17,30 @@ router.get('/', checkAuthenticated, async function (req, res) {
   // display them on the page allowing the user to select one file to send 
   res.render('email', {
     fileArr: arr,
-    name: req.user.name
+    name: req.user.name,
+    errorMessage: ''
   });
 });
 
 // post called once the user clicks the submit email button, creates new nodemialer email 
 // and sends it to the desired email address
 router.post("/sendEmail", checkAuthenticated, (req, res) => {
-  
+
   var message = sendEmail(req)
-  res.redirect(301, "redirectEmail")
+  if (message == 'No files were selected, select at least one file to send') {
+    var arr = getUploads(req.user.id)
+    // first we figure out which files are in the uploads directory then 
+    // display them on the page allowing the user to select one file to send 
+    res.render('email', {
+      fileArr: arr,
+      name: req.user.name,
+      errorMessage: message
+    });
+  }
+  else {
+    res.redirect(301, "redirectEmail")
+  }
+  
 });
 
 // called after send email is sent

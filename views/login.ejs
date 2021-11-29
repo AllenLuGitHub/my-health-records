@@ -16,7 +16,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
 
 
-    <title>Upload files</title>
+    <title>Login to My Health Records</title>
     <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/login">My Health Records</a>
@@ -41,9 +41,12 @@
     <div class = "undernavbar"> 
         <h1>Welcome to My Health records</h1>
         <h6>Login with your email and password or create an account</h6>
-        <% if (messages.error) { %>
-        <%= messages.error %>
-        <% } %>
+        <h6 class="error">
+            <% if (messages.error) { %>
+                <%= messages.error %>
+                <% } %>
+        </h6>
+        
         <form action="/login" method="POST">
         <div>
             <input type="email" id="emailInput" name="email" placeholder="Enter your email" required>
