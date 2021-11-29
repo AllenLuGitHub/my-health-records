@@ -71,7 +71,12 @@ router.get("/open", checkAuthenticated, (req, res) => {
 //when user clicks a file link this function will allow the user to view 
 //the file in a pdf viewer to view the document
 router.get("/view/:file", checkAuthenticated, (req, res) => {
-    open('http://localhost:8080/manage/open?file=' + req.params.file, 'browser')
+  var pathString = 'http://localhost:8080/manage/open?file='
+  pathString += req.params.file
+  pathString = pathString.replace(' ', '%')
+  console.log(pathString);
+
+    open(pathString, 'browser')
     res.redirect('/manage')
 });
 

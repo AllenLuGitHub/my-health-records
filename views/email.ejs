@@ -55,7 +55,7 @@ planning to implement that feature next.  -->
                 <h4> A file must be uploaded in order to send an email</h4>
                 <a href="/upload"> Click here to upload your files</a>
             <% } %>
-
+            
             <% if(fileArr.length != 0) { %>
                 <form action="/email/sendEmail" method="POST">
                     <h1>Share your health records</h1>
@@ -64,8 +64,11 @@ planning to implement that feature next.  -->
                     <input type="text" id="subject" name="subject" placeholder="The subject of your email" required><br>
                     <br>
                     <textarea name="body" rows="5" class="text-box"required placeholder="  What would you like to say?"></textarea> <br>
-
+                    <h2 class='error'> 
+                        <%= errorMessage %>
+                    </h2>
                 <h3>Choose one or more files to send: </h3>
+                
                 <div class="file-container">
                     <% fileArr.forEach((file) => { %>
 

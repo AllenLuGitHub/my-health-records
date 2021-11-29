@@ -19,9 +19,13 @@ var storage = multer.diskStorage({
     cb(null, "uploads")
   },
   filename: function (req, file, cb) {
-    console.log(file)
+    
     // with multiple users file.fieldname will be replaced with each user's
     // unique username inorder to seperate one user's file from the next.
+    for(var i = 0; i < file.originalname.length; i++) {
+      file.originalname = file.originalname.replace(' ', '-')
+     }
+    
     cb(null, req.user.id + "-" + Date.now() + "-" + file.originalname)
   }
 })
@@ -38,7 +42,7 @@ var upload = multer({
   fileFilter: function (req, file, cb) {
 
     // Set the filetypes a user can upload, this can be tweaked as necessary
-    var filetypes = /pdf/;
+    var filetypes = /pdf|jpg|png|jpeg/;
     var mimetype = filetypes.test(file.mimetype);
 
     var extname = filetypes.test(path.extname(
@@ -82,7 +86,7 @@ router.post('/uploadFile', checkAuthenticated, (req, res, next) => {
       // 10MB or uploading different file type)
       var message = 'Please upload a smaller file (less than 10 MB)'
       if (err == 'Error: type error') {
-        message = 'Please only upload PDF documents '
+        message = 'Please only upload PDF, PNG, JPG, or JPEG documents '
       }
       res.render('uploadError', {
         name: req.user.name,

@@ -18,13 +18,7 @@ function sendMail(req) {
      var dynamicAttachments = [];
      console.log(pathstring)
      if (pathstring == undefined) {
-
-          var message = {
-               from: userEmail,
-               to: req.body.to,
-               subject: req.user.name +" says: "+ req.body.subject,
-               text: req.body.body,
-          };
+          return 'No files were selected, select at least one file to send';
      }
 
      else if (pathstring[0].length == 1) {
@@ -54,7 +48,7 @@ function sendMail(req) {
           var message = {
                from: userEmail,
                to: req.body.to,
-               subject: req.user.name + req.body.subject,
+               subject: req.user.name + " says: " +req.body.subject,
                text: req.body.body,
                attachments: dynamicAttachments
           };
