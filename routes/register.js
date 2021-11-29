@@ -34,7 +34,7 @@ async function addUser(document) {
 var usersInDB = []
 
 router.get('/', checkNotAuthenticated, async (req, res) => {
-  await getData();
+  usersInDB = await getUsers();
   console.log(usersInDB);
   res.render('register.ejs', { name: '' })
 })
