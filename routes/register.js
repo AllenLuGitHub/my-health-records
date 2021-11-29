@@ -32,13 +32,10 @@ async function addUser(document) {
 }
 
 var usersInDB = []
-async function getData() {
-  usersInDB = await getUsers();
-  return 0;
-}
 
 router.get('/', checkNotAuthenticated, async (req, res) => {
-  usersInDB = await getData();
+  await getData();
+  console.log(usersInDB);
   res.render('register.ejs', { name: '' })
 })
 
@@ -54,7 +51,7 @@ var transport = nodemailer.createTransport({
 });
 
 router.post('/', checkNotAuthenticated, async (req, res) => {
-  usersInDB = await getData();
+  usersInDB = await getUsers();
 
   var errorString = 'There was an error creating your account';
 
