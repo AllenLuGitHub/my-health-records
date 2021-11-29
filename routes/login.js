@@ -8,12 +8,7 @@ const getUsers = require("../functions/getUsers")
 
 const initializePassport = require('../passport-config')
 
-
 var usersInDB = [];
-async function getData() {
-  usersInDB = await getUsers();
-  return 0;
-}
 
 initializePassport(
   passport,
@@ -21,8 +16,8 @@ initializePassport(
   id => usersInDB.find(user => user.id === id)
 )
 
-router.get('/', checkNotAuthenticated, (req, res) => {
-  getData();
+router.get('/', checkNotAuthenticated, async (req, res) => {
+  usersInDB = await getUsers();
   res.render('login.ejs')
 })
 
