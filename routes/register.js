@@ -5,86 +5,119 @@ const path = require('path');
 const bcrypt = require('bcrypt')
 const nodemailer = require("nodemailer")
 const fs = require("fs");
-
+const dotenv = require('dotenv').config()
 
 const checkAuthenticated = require("../functions/checkAuth")
-const checkNotAuthenticated = require("../functions/checkNotAuth")
+const checkNotAuthenticated = require("../functions/checkNotAuth");
+const getUsers = require("../functions/getUsers")
+
+const MongoClient = require('mongodb').MongoClient;
 
 
-router.get('/', checkNotAuthenticated, (req, res) => {
-    res.render('register.ejs', {name: ''})
-  })
-  
-  var userEmail = 'testusersd4353@gmail.com'
-  var pass = 'fxqxadqojxnptkuq'
-  
-  var transport = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: userEmail,
-      pass: pass // get this password from the peer evaluation sheet we turned in 
+async function addUser(document) {
+
+  const uri = process.env.MONGO_CONNECTION;
+  const client = new MongoClient(uri, { useNewUrlParser: true });
+
+  // Connect to the client and query
+  await client.connect();
+
+  await client
+    .db('UserDatabase')
+    .collection('userInfo')
+    .insertOne(document)
+
+  client.close();
+  return;
+}
+
+var usersInDB = []
+async function getData() {
+  usersInDB = await getUsers();
+  return 0;
+}
+
+router.get('/', checkNotAuthenticated, async (req, res) => {
+  usersInDB = await getData();
+  res.render('register.ejs', { name: '' })
+})
+
+var userEmail = process.env.GMAIL_USER
+var pass = process.env.GMAIL_APP_PASS
+
+var transport = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: userEmail,
+    pass: pass // get this password from the peer evaluation sheet we turned in 
+  }
+});
+
+router.post('/', checkNotAuthenticated, async (req, res) => {
+  usersInDB = await getData();
+
+  var errorString = 'There was an error creating your account';
+
+  try {
+    if (req.body.password != req.body.confirmPassword) {
+      console.log("passwords didnt match")
+      errorString = 'Please enter matching passwords'
+      throw ('error')
     }
-  });
-  
-  router.post('/', checkNotAuthenticated, async (req, res) => {
-    console.log(req.body)
-    var errorString = 'There was an error creating your account';
-    try {
-      if (req.body.password != req.body.confirmPassword) {
-        console.log("passwords didnt match")
-        errorString = 'Please enter matching passwords'
-        throw ('error')
+    for (i = 0; i < usersInDB.length; ++i) {
+      console.log(usersInDB[i].email)
+      if (req.body.email == usersInDB[i].email) {
+        errorString = "An account with that email already exists"
+        throw "error"
       }
-      for (i = 0; i < users.length; ++i) {
-        if (req.body.email == global.users[i].email) {
-          errorString = "An account with that email already exists"
-          throw "error"
-        }
+    }
+    uid = Math.floor(100000 + Math.random() * 900000)
+    for (i = 0; i < usersInDB.length; ++i) {
+      if (uid == usersInDB[i].id) {
+        uid = Math.floor(100000 + Math.random() * 900000)
+        i = 0
       }
-      uid = Math.floor(100000 + Math.random() * 900000)
-      for (i = 0; i < users.length; ++i) {
-        if (uid == global.users[i].id) {
-          uid = Math.floor(100000 + Math.random() * 900000)
-          i = 0
-        }
-      }
-  
-      const hashedPassword = await bcrypt.hash(req.body.password, 10)
-      global.users.push({
-        id: uid,
-        name: req.body.name,
-        email: req.body.email,
-        password: hashedPassword
-      })
-      var textBody = `Hi ${req.body.name}, we hope you enjoy using our application. \r\n\r\n -The MHR team`
-  
+    }
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+
+    await addUser({
+      id: uid,
+      name: req.body.name,
+      email: req.body.email,
+      password: hashedPassword
+    })
+
+    var textBody = `Hi ${req.body.name}, we hope you enjoy using our application. \r\n\r\n -The MHR team`
+
     var message = {
-        from: userEmail,
-        to: req.body.email,
-        subject: "Thanks for signing up for my health records!",
-        text: textBody ,
-      };
-  
-      transport.sendMail(message, function(err) {
-        if (err) {
-          console.log("there was an error", err);
-          res.send("there was an error sending your message ")
-          return;
-        }
-        console.log("email sent");
-      });
-  
-      res.redirect('/login')
-      console.log(global.users)
-  
-    } catch (e) {
-      console.log("error caught", e)
-      res.render('register.ejs', {
-        name: errorString
-      })
-    }
-  })
-  
-  
+      from: userEmail,
+      to: req.body.email,
+      subject: "Thanks for signing up for my health records!",
+      text: textBody,
+    };
 
-  module.exports = router
+    transport.sendMail(message, function (err) {
+      if (err) {
+        console.log("there was an error", err);
+        res.send("there was an error sending your message ")
+        return;
+      }
+      console.log("email sent");
+    });
+
+    res.redirect(301, '/register/registerSuccess')
+
+  } catch (e) {
+    console.log("error caught", e)
+    res.render('register.ejs', {
+      name: errorString
+    })
+  }
+})
+
+router.get('/registerSuccess', checkNotAuthenticated, (req, res) => {
+  res.render('registerSuccess.ejs')
+})
+
+module.exports = router

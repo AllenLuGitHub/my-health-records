@@ -2,8 +2,8 @@ const path = require('path');
 const nodemailer = require("nodemailer")
 const fs = require("fs");
 
-var userEmail = 'testusersd4353@gmail.com'
-var pass = 'fxqxadqojxnptkuq'
+var userEmail = process.env.GMAIL_USER
+var pass = process.env.GMAIL_APP_PASS
 
 var transport = nodemailer.createTransport({
      service: 'gmail',

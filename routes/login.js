@@ -4,24 +4,32 @@ const router = express.Router()
 const passport = require('passport')
 const checkAuthenticated = require("../functions/checkAuth")
 const checkNotAuthenticated = require("../functions/checkNotAuth")
-
+const getUsers = require("../functions/getUsers")
 
 const initializePassport = require('../passport-config')
+
+
+var usersInDB = [];
+async function getData() {
+  usersInDB = await getUsers();
+  return 0;
+}
+
 initializePassport(
   passport,
-  email => global.users.find(user => user.email === email),
-  id => global.users.find(user => user.id === id)
+  email => usersInDB.find(user => user.email === email),
+  id => usersInDB.find(user => user.id === id)
 )
 
 router.get('/', checkNotAuthenticated, (req, res) => {
-  console.log(req.body)
-    res.render('login.ejs')
-  })
-  
-router.post('/', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-  }))
+  getData();
+  res.render('login.ejs')
+})
 
-  module.exports = router
+router.post('/', checkNotAuthenticated, passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true
+}))
+
+module.exports = router
