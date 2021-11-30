@@ -34,19 +34,18 @@ async function addUser(document) {
 var usersInDB = []
 
 router.get('/', checkNotAuthenticated, async (req, res) => {
-  usersInDB = await getUsers();
-  console.log(usersInDB);
+  //usersInDB = await getUsers();
   res.render('register.ejs', { name: '' })
 })
 
-var userEmail = process.env.GMAIL_USER
-var pass = process.env.GMAIL_APP_PASS
+var appEmailUsername = process.env.GMAIL_USER
+var appOnlyPassword = process.env.GMAIL_APP_PASS
 
 var transport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: userEmail,
-    pass: pass // get this password from the peer evaluation sheet we turned in 
+    user: appEmailUsername,
+    pass: appOnlyPassword // get this password from the peer evaluation sheet we turned in 
   }
 });
 
@@ -64,7 +63,7 @@ router.post('/', checkNotAuthenticated, async (req, res) => {
     for (i = 0; i < usersInDB.length; ++i) {
       console.log(usersInDB[i].email)
       if (req.body.email == usersInDB[i].email) {
-        errorString = "An account with that email already exists"
+        errorString = `An account with the email "${req.body.email}" already exists, please use a different email address`
         throw "error"
       }
     }
