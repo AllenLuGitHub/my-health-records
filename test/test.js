@@ -89,6 +89,9 @@ describe('Unit Tests', () => {
             to: 'henryhmadsen@gmail.com',
             subject: 'this is a test',
             body: 'hi doc here are the records ',
+            checkedFile: 'tofile'
+                
+            
         }
 
         var user = {
