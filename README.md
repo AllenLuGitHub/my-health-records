@@ -25,9 +25,9 @@ During sprint two Allen and I decided implementing the ability to send multiple 
   - MyHealthRecords will hold many patients personal documentation which is why it is imperative for us to implement a login system so that we can protect user records. This was done by giving each account created, a unique ID that only that specific account is assigned to. From there, any documents or files that the user has uploaded will be labeled with that specific key/ID. For example, if we were to have John's ID to be 1234 and Anna's ID to be 4321, either patient would not be able to see each others files because they are tagged with an unique ID.
 
 
-NEEDS UPDATING 
+
 USAGE:
-You may either follow the steps below of view our tutorial for installation on YouTube here : INSERT LINK 
+You may either follow the steps below of view our tutorial for installation on YouTube here : https://youtu.be/1ZYF-wIs1cM 
 1. Install the latest version of node js from https://nodejs.org/en/download/ (you can use homebrew if on mac but this can be weird)
 2. Download or clone repo
 3. Navigate to top level directory of the project in your favorite IDE or your file system (go to the my-health-records directory)
