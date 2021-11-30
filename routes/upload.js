@@ -19,13 +19,13 @@ var storage = multer.diskStorage({
     cb(null, "uploads")
   },
   filename: function (req, file, cb) {
-    
+
     // with multiple users file.fieldname will be replaced with each user's
     // unique username inorder to seperate one user's file from the next.
-    for(var i = 0; i < file.originalname.length; i++) {
+    for (var i = 0; i < file.originalname.length; i++) {
       file.originalname = file.originalname.replace(' ', '-')
-     }
-    
+    }
+
     cb(null, req.user.id + "-" + Date.now() + "-" + file.originalname)
   }
 })
