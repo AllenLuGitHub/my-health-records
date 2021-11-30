@@ -18,13 +18,11 @@ var getUploads = require('../functions/getUploads')
 router.get('/', checkAuthenticated, async function (req, res, next) {
 
   console.log(numberOfFiles(req.user.id))
-  var arr = getUploads(req.user.id)
-
-  console.log(arr)
+  var getUploadsResult = getUploads(req.user.id)
   // first we get all files in directory (Except D.S_Store file) then send them to the 
   // download.ejs file to display
   res.render('manage', {
-    fileArr: arr,
+    fileArr: getUploadsResult,
     name: req.user.name,
   });
 });

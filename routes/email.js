@@ -12,11 +12,11 @@ var sendEmail = require('../functions/sendEmail')
 
 // gets user request to render email page
 router.get('/', checkAuthenticated, async function (req, res) {
-  var arr = getUploads(req.user.id)
+  var getUploadsResult = getUploads(req.user.id)
   // first we figure out which files are in the uploads directory then 
   // display them on the page allowing the user to select one file to send 
   res.render('email', {
-    fileArr: arr,
+    fileArr: getUploadsResult,
     name: req.user.name,
     errorMessage: ''
   });
@@ -28,11 +28,11 @@ router.post("/sendEmail", checkAuthenticated, (req, res) => {
 
   var message = sendEmail(req)
   if (message == 'No files were selected, select at least one file to send') {
-    var arr = getUploads(req.user.id)
+    var getUploadsResult = getUploads(req.user.id)
     // first we figure out which files are in the uploads directory then 
     // display them on the page allowing the user to select one file to send 
     res.render('email', {
-      fileArr: arr,
+      fileArr: getUploadsResult,
       name: req.user.name,
       errorMessage: message
     });
