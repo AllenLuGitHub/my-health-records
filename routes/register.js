@@ -87,7 +87,7 @@ router.post('/', checkNotAuthenticated, async (req, res) => {
     var textBody = `Hi ${req.body.name}, we hope you enjoy using our application. \r\n\r\n -The MHR team`
 
     var message = {
-      from: userEmail,
+      from: appEmailUsername,
       to: req.body.email,
       subject: "Thanks for signing up for my health records!",
       text: textBody,
