@@ -40,7 +40,7 @@ router.post("/sendEmail", checkAuthenticated, (req, res) => {
   else {
     res.redirect(301, "redirectEmail")
   }
-  
+
 });
 
 // called after send email is sent

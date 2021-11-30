@@ -55,9 +55,9 @@ router.get("/delete/:file", checkAuthenticated, (req, res) => {
 
 router.get("/open", checkAuthenticated, (req, res) => {
   var fileToOpen = url.parse(req.url, true).query
-  
+
   const filepath = path.join("uploads/" + fileToOpen.file.toString())
-  
+
   if (fs.existsSync(filepath)) {
     fs.createReadStream(filepath).pipe(res)
   } else {
@@ -65,7 +65,7 @@ router.get("/open", checkAuthenticated, (req, res) => {
     console.log('File not found')
     res.send('File not found')
   }
-  
+
 });
 
 //when user clicks a file link this function will allow the user to view 
@@ -73,11 +73,10 @@ router.get("/open", checkAuthenticated, (req, res) => {
 router.get("/view/:file", checkAuthenticated, (req, res) => {
   var pathString = 'http://localhost:8080/manage/open?file='
   pathString += req.params.file
-  pathString = pathString.replace(' ', '%')
   console.log(pathString);
 
-    open(pathString, 'browser')
-    res.redirect('/manage')
+  open(pathString, 'browser')
+  res.redirect('/manage')
 });
 
 
