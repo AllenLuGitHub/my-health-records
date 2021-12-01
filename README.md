@@ -37,4 +37,4 @@ You may either follow the steps below of view our tutorial for installation on Y
 
 Please email henryhmadsen@gmail.com or allenlu9326@gmail.com with any questions. 
 
-For a demo watch our YouTube video here: INSERT LINK 
+For a demo watch our YouTube video here: https://youtu.be/yo61myCXGqQ
