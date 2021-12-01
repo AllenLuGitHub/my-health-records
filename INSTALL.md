@@ -2,7 +2,7 @@
 
 HOW TO INSTALL:
 
-You may either follow the steps below of view our tutorial for installation on YouTube here : https://youtu.be/1ZYF-wIs1cM 
+You may either follow the steps below of view our tutorial for installation on YouTube here : https://youtu.be/rZPRw9f3EjQ
 
 1. Install the latest version of node js from https://nodejs.org/en/download/ (please use v16.13.0)(you can use homebrew if on mac but this can be weird)
 2. Download latest release of My Health Records
