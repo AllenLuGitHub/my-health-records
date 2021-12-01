@@ -1,7 +1,7 @@
 First sprint
 - implement upload feature [done - H]
 - implement download feature [done - H]
-- implement email feature [working - A]
+- implement email feature [done - A]
 
 Second sprint
 - implement send multiple files feature [done - H]
