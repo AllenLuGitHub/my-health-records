@@ -3,7 +3,7 @@
 [![Build Status](https://app.travis-ci.com/hhm14/my-health-records.svg?branch=main)](https://app.travis-ci.com/hhm14/my-health-records)
 Team Two - Allen Lu and Henry Madsen
 
-For a demo watch our YouTube video here: INSERT LINK 
+For a demo watch our YouTube video here: https://youtu.be/yo61myCXGqQ
 
 SEE BOTTOM FOR USAGE
 
