@@ -25,13 +25,13 @@ During sprint two Allen and I decided implementing the ability to send multiple 
   - MyHealthRecords will hold many patients personal documentation which is why it is imperative for us to implement a login system so that we can protect user records. This was done by giving each account created, a unique ID that only that specific account is assigned to. From there, any documents or files that the user has uploaded will be labeled with that specific key/ID. For example, if we were to have John's ID to be 1234 and Anna's ID to be 4321, either patient would not be able to see each others files because they are tagged with an unique ID.
 
 
-NEEDS UPDATING 
+
 USAGE:
-You may either follow the steps below of view our tutorial for installation on YouTube here : INSERT LINK 
+You may either follow the steps below of view our tutorial for installation on YouTube here : https://youtu.be/1ZYF-wIs1cM 
 1. Install the latest version of node js from https://nodejs.org/en/download/ (you can use homebrew if on mac but this can be weird)
 2. Download or clone repo
 3. Navigate to top level directory of the project in your favorite IDE or your file system (go to the my-health-records directory)
-4. Open a terminal at the my-health-records directory, run "npm i" (you may have to download some packages manually although this should not happen. In this case run: "npm i ejs express filereader multer sequelize ...", and/or npm i [package] that is not download my npm i) alternativly you can use npm ci to install the necessary dependencies 
+4. Open a terminal at the my-health-records directory, run "npm ci" (you may have to download some packages manually although this should not happen. In this case run: "npm i ejs express filereader multer sequelize ...", and/or npm i [package] that is not download my npm i).
 5. Run the project by typing "node app.js" or "npm run devStart" (this command will launch the site with nodemon) in the terminal from the my-health-records directory 
 6. In your web browser go to http://localhost:8080/ to view the app and try the features
 
