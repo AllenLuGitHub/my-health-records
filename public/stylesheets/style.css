@@ -113,18 +113,14 @@ input {
 }
 
 .manage-list-block {
-  width: 100%;
+  
     text-align: center;
 }
 .manage-list {
-  width: 50%;
     display: inline-block; 
 	text-align: left; 
 }
 
 .error {
   color: red;
-}
-.manage-link {
-margin: .5%;
 }
